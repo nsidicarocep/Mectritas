@@ -17,9 +17,11 @@
 # Armar funcion
 limpia_cuits <- function(data, elimina_cajas=T,indica_cajas=F,elimina_publico=F,indica_publico=T,elimina_pub_no_prod = F) {
   require(data.table)
-  setDT(data)
+  #setDT(data)
   filtro_database <- Mectritas::filtro_database 
   cuits_publicos <- Mectritas::cuits_publicos
+  setDT(filtro_database)
+  setDT(cuits_publicos)
   # Elimina cajas 
   if(elimina_cajas == T){
     data <- data[,cajas_remove := fifelse(cuit %in% filtro_database$cuit,1,0)]
