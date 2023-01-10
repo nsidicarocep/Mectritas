@@ -1,5 +1,5 @@
-Package: DatosAbiertosCEP
-Title: Descarga de datos pertenecientes al Centro de Estudios para la Producción XXI
+Package: Mectritas
+Title: Paquete para facilitar uso de MECTRA
 Version: 0.0.0.9000
 Authors@R: 
     person("Nicolás","Sidicaro", , "nsidicaro.cep@gmail.com", role = c("aut", "cre"),
@@ -12,7 +12,5 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 LazyData: true
 Imports: 
-	dplyr,
-	readr, 
-	shiny, 
-	ggplot2
+	tidyverse,
+	data.table
