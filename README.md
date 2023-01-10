@@ -1,6 +1,13 @@
 # Mectritas
 Facilita el procesamiento de MECTRA
 
+# Cómo instalar 
+
+```r
+# install.packages("devtools")
+devtools::install_github('nsidicarocep/Mectritas')
+```
+
 ## Funciones 
 
 - **``add_claes()``**: agrega las distintas agregaciones de los claes deseadas y sus descripciones (si eso se desea). 
