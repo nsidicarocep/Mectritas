@@ -62,7 +62,5 @@ deflactanator <- function(data,mes_base,variables_deflactar,variable_mes,pisar_d
     variables_creadas <- stringr::str_remove(variables_creadas,'_constante')
     setnames(data,variables_creadas)
   }
-  # } else {
-  #   return(data)
-  # }
+  return(data)
 }

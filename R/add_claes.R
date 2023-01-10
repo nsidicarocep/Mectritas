@@ -47,7 +47,7 @@ add_claes <- function(data, agregacion_deseada = c('clae6','clae3','clae2','letr
     if(length(posibles_agregaciones) < length(agregacion_deseada_inicial)) {
       warning(paste0('La adición de agregaciones sectoriales es posible para categorías más agrupadas de los datos.\nNo es posible añadir una agregación más desagregada que la efectiva de los datos'))
     }
-    data <- dplyr::as_tibble(data)
+    data <- setDT(data)
     return(data)
   } else {
     stop(paste0('Los datos solicitados no presentan agregación alguna actualmente, por lo que no es posible añadir nuevas agregaciones.'))

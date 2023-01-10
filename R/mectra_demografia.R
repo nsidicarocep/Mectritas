@@ -14,7 +14,7 @@
 mectra_demografia <- function(data,sexo=T,nacimiento=T) {
   require(data.table)
   require(tidyverse)
-  setDT(data)
+  data.table::setDT(data)
   if(sexo == T){
     data <- data[,cuil_dos_cif := str_sub(cuil,1,2)]
     data <- data[,cuil_ulti := str_sub(cuil,11,11)]
@@ -29,7 +29,7 @@ mectra_demografia <- function(data,sexo=T,nacimiento=T) {
   # Añade año de nacimiento
   if(nacimiento == T){
     #Calcular las edades faltantes
-    dni_anio <- fread(r"(C:\Users\Usuario\Documents\CEP\Paquetes\Mectritas\data\Year_dni.csv)")
+    dni_anio <- Mectritas::Year_dni
     dni_anio <- dni_anio %>% select(-DNI_trabajo, edad_calculada = d3_dni) %>% distinct()
     dni_anio <- dni_anio %>% group_by(edad_calculada) %>% filter(Anio_nac==min(Anio_nac))
     setDT(dni_anio)
@@ -43,15 +43,3 @@ mectra_demografia <- function(data,sexo=T,nacimiento=T) {
   }
   return(data)
 }
-
-
-
-
-
-
-
-
-
-
-
-
