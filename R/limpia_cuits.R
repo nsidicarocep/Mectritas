@@ -22,7 +22,9 @@ limpia_cuits <- function(data, elimina_cajas=T,indica_cajas=F,elimina_publico=F,
   cuits_publicos <- Mectritas::cuits_publicos
   # Elimina cajas 
   if(elimina_cajas == T){
-    data <- data[!(cuit %in% filtro_database)]
+    data <- data[,cajas_remove := fifelse(cuit %in% filtro_database$cuit,1,0)]
+    data <- data[cajas_remove == 0]
+    data$cajas_remove <- NULL
   }
   
   # Indica cajas  
@@ -32,7 +34,9 @@ limpia_cuits <- function(data, elimina_cajas=T,indica_cajas=F,elimina_publico=F,
   
   # Elimina publico 
   if(elimina_publico == T){
-    data <- data[!(cuit %in% cuits_publicos$cuit)]
+    data <- data[,publicos_remove := fifelse(cuit %in% cuits_publicos$cuit,1,0)]
+    data <- data[publicos_remove == 0]
+    data$publicos_remove <- NULL
   }
   
   # Indica publico 
@@ -43,7 +47,9 @@ limpia_cuits <- function(data, elimina_cajas=T,indica_cajas=F,elimina_publico=F,
   
   # Elimina no productivos 
   if(elimina_pub_no_prod == T){
-    data <- data[!(cuit %in% cuits_publicos[inclusion == 0]$cuit)]
+    data <- data[,publicos_remove2 := fifelse(cuit %in% cuits_publicos[inclusion == 0]$cuit,1,0)]
+    data <- data[publicos_remove2 == 0]
+    data$publicos_remove2 <- NULL
   }
   return(data)
 }
