@@ -18,9 +18,6 @@
 limpia_cuits <- function(data, elimina_cajas=T,indica_cajas=F,elimina_publico=F,indica_publico=T,elimina_pub_no_prod = F) {
   require(data.table)
   setDT(data)
-  #Carga auxiliares 
-  filtro_database <- fread(r'(C:\Users\Usuario\Documents\CEP\Paquetes\Mectritas\data\filtro_database.csv)',integer64='double')
-  publicos <- fread(r'(C:\Users\Usuario\Documents\CEP\Paquetes\Mectritas\data\cuits_publicos.csv)',integer64='double')
   
   # Elimina cajas 
   if(elimina_cajas == T){
@@ -34,17 +31,17 @@ limpia_cuits <- function(data, elimina_cajas=T,indica_cajas=F,elimina_publico=F,
   
   # Elimina publico 
   if(elimina_publico == T){
-    data <- data[!(cuit %in% publicos$cuit)]
+    data <- data[!(cuit %in% cuits_publicos)]
   }
   
   # Indica publico 
   if(indica_publico == T){
-    data <- merge.data.table(data,publicos,by='cuit',all.x=T)
+    data <- merge.data.table(data,cuits_publicos,by='cuit',all.x=T)
     data <- data[,inclusion := tidyr::replace_na(inclusion,2)]
   }
   
   # Elimina no productivos 
   if(elimina_pub_no_prod == T){
-    data <- data[!(cuit %in% publicos[inclusion == 0]$cuit)]
+    data <- data[!(cuit %in% cuits_publicos[inclusion == 0]$cuit)]
   }
 }

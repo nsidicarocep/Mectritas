@@ -34,10 +34,10 @@ add_claes <- function(data, agregacion_deseada = c('clae6','clae3','clae2','letr
     
     # Seleccionar los datos a agregar 
     if (descripciones ==T) {
-      dicc_sector_tmp <- unique(dplyr::select(DatosAbiertosCEP::dicc_sector,dplyr::starts_with(agregacion_deseada)))
+      dicc_sector_tmp <- unique(dplyr::select(Mectritas::dicc_sector,dplyr::starts_with(agregacion_deseada)))
     } else {
-      dicc_sector_tmp <- unique(dplyr::select(DatosAbiertosCEP::dicc_sector,dplyr::starts_with(agregacion_deseada)))
-      dicc_sector_tmp <- dplyr::select(DatosAbiertosCEP::dicc_sector,-dplyr::contains('desc'))
+      dicc_sector_tmp <- unique(dplyr::select(Mectritas::dicc_sector,dplyr::starts_with(agregacion_deseada)))
+      dicc_sector_tmp <- dplyr::select(Mectritas::dicc_sector,-dplyr::contains('desc'))
     }
     
     #Joinear con los datos seleccionados 
