@@ -18,25 +18,26 @@
 limpia_cuits <- function(data, elimina_cajas=T,indica_cajas=F,elimina_publico=F,indica_publico=T,elimina_pub_no_prod = F) {
   require(data.table)
   setDT(data)
-  
+  filtro_database <- Mectritas::filtro_database 
+  cuits_publicos <- Mectritas::cuits_publicos
   # Elimina cajas 
   if(elimina_cajas == T){
-    data <- data[!(cuit %in% Mectritas::filtro_database$cuit)]
+    data <- data[!(cuit %in% filtro_database)]
   }
   
   # Indica cajas  
   if(indica_cajas == T){
-    data <- data[,cajas := fifelse(cuit %in% Mectritas::filtro_database$cuit,1,0)]
+    data <- data[,cajas := fifelse(cuit %in% filtro_database$cuit,1,0)]
   }
   
   # Elimina publico 
   if(elimina_publico == T){
-    data <- data[!(cuit %in% Mectritas::cuits_publicos$cuit)]
+    data <- data[!(cuit %in% cuits_publicos$cuit)]
   }
   
   # Indica publico 
   if(indica_publico == T){
-    data <- merge.data.table(data,Mectritas::cuits_publicos,by='cuit',all.x=T)
+    data <- merge.data.table(data,cuits_publicos,by='cuit',all.x=T)
     data <- data[,inclusion := tidyr::replace_na(inclusion,2)]
   }
   
