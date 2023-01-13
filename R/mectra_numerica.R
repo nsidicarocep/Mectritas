@@ -16,5 +16,5 @@ mectra_numerica <- function(data) {
   #Variables que pueden pasar a numericas 
   numericas_posibles <- c('cuit','cuil','clae6','act_trab','codprov','remuneracion','sueldo','sac','conss','conos','madconss','conrenatre','codobsoc','cond_cuil','apobliss','apobsoc','convencionado','modalidad','mes')
   numericas <- numericas_posibles[numericas_posibles %in% colnames(data)]
-  data <- data[,lapply(.SD, as.double),.SDcols=numericas]
+  data <- data[,(numericas):=lapply(.SD, as.double),.SDcols=numericas]
 }
