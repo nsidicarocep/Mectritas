@@ -13,7 +13,7 @@
 #' @return A matrix of the infile
 #' @export
 
-indexanator <- function(data,base_indice,variables_indexar,variables_agrupar,pisar_datos=F){
+indexanator <- function(data,base_indice,variables_indexar,variables_agrupar='',pisar_datos=F){
   #Librerias
   require(data.table)
   setDT(data)
@@ -25,6 +25,10 @@ indexanator <- function(data,base_indice,variables_indexar,variables_agrupar,pis
   variable_actual <- names(data)
   variables_base <- names(data)
   variables_index <- variable_actual[variable_actual %in% variables_datos_abiertos]
+  if(variables_agrupar == '') {
+    data <- data[,no_agrupada := 1]
+    variables_agrupar <- 'no_agrupada'
+  }
   variables_no_index <- variables_agrupar
   if(base_indice == 'max'){
     # Indexar contra valor máximo de cada desagregacion
@@ -78,6 +82,9 @@ indexanator <- function(data,base_indice,variables_indexar,variables_agrupar,pis
     warning(paste0('No se detectó correctamente la base indicada para generar el índice.\n 
                    Las opciones son: max, min o una fecha en formato YYYY-MM-DD')) 
     return(data)
+  }
+  if(variables_agrupar == 'no_agrupada') {
+    data$no_agrupada <- NULL
   }
   if(length(data) > largo_original & pisar_datos == T){
     data <- data[,.SD,.SDcols = -variables_index]
