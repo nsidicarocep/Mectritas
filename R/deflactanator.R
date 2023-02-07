@@ -26,7 +26,7 @@ deflactanator <- function(data,mes_base,variables_deflactar,variable_mes,pisar_d
   }
   setDT(data)
   setDT(ipc_base_2016)
-  setnames(ipc_base_2016,'fecha',variable_mes)
+  setnames(data,variable_mes,'fecha')
   # Elegir variable monetaria presente en la base actual
   variable_actual <- variables_deflactar
   variables_base <- colnames(data)
@@ -36,7 +36,7 @@ deflactanator <- function(data,mes_base,variables_deflactar,variable_mes,pisar_d
   if(length(variable_actual)==1){
     tmp <- ipc_base_2016[fecha == mes_base]
     data <- data[,indice_mes_base := tmp$indice]
-    data <- merge.data.table(data,ipc_base_2016,by=variable_mes,all.x=T)
+    data <- merge.data.table(data,ipc_base_2016,by='fecha',all.x=T)
     data <- data[,indice_mes_base := indice_mes_base / indice]
     data <- data[,paste0(variable_actual,'_constante') := .SD*indice_mes_base,.SDcols=variable_actual]
     variables_base2 <- colnames(data)
@@ -50,7 +50,7 @@ deflactanator <- function(data,mes_base,variables_deflactar,variable_mes,pisar_d
   } else if (length(variable_actual)>1){
     tmp <- ipc_base_2016[fecha == mes_base]
     data <- data[,indice_mes_base := tmp$indice]
-    data <- merge.data.table(data,ipc_base_2016,by=variable_mes,all.x=T)
+    data <- merge.data.table(data,ipc_base_2016,by='fecha',all.x=T)
     data <- data[,indice_mes_base := indice_mes_base / indice]
     data <- data[,paste0(variable_actual,'_constante') := .SD*indice_mes_base,.SDcols=variable_actual]
     variables_base2 <- colnames(data)
@@ -68,5 +68,6 @@ deflactanator <- function(data,mes_base,variables_deflactar,variable_mes,pisar_d
     variables_creadas <- stringr::str_remove(variables_creadas,'_constante')
     setnames(data,variables_creadas)
   }
+  setnames(data,'fecha',variable_mes)
   return(data)
 }
