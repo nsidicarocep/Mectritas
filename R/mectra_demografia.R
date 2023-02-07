@@ -11,7 +11,7 @@
 #' @export
 
 # Armar funcion
-mectra_demografia <- function(data,sexo=T,nacimiento=T) {
+mectra_demografia <- function(data,sexo=T,nacimiento=F) {
   require(data.table)
   require(tidyverse)
   data.table::setDT(data)
