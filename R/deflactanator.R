@@ -21,7 +21,7 @@ deflactanator <- function(data,mes_base,variables_deflactar,variable_mes,pisar_d
   if(file.exists(f)){
     load(f)
   } else {
-    load(url('https://github.com/nsidicarocep/DatosAbiertosCEP/blob/main/data/ipc_base_2016.rda?raw=true'))
+    load(url('https://github.com/CEProduccionXXI/DatosAbiertosCEP/blob/main/data/ipc_base_2016.rda?raw=true'))
     save(ipc_base_2016,file = f,version = 2)
   }
   setDT(data)
